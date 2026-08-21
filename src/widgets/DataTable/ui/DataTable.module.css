@@ -1,0 +1,135 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #d9dee7;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.header {
+    flex: 0 0 auto;
+    background: #f5f7fa;
+    border-bottom: 1px solid #d9dee7;
+    z-index: 10;
+}
+
+.headerRow {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    min-width: 500px;
+}
+
+.headerCell {
+    box-sizing: border-box;
+    padding: 0 12px;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+
+.scrollContainer {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    overflow: auto;
+    position: relative;
+}
+
+.body {
+    position: relative;
+    width: 100%;
+    min-width: 500px;
+}
+
+.row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    height: 44px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #edf0f4;
+    border-left: 3px solid transparent;
+    background: #ffffff;
+    cursor: pointer;
+    transition:
+        background-color 150ms ease,
+        border-color 150ms ease;
+    will-change: transform;
+}
+
+.row:hover {
+    background: #f8fafc;
+}
+
+.row:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: -2px;
+}
+
+.row.selected {
+    background: #dbeafe;
+    border-left-color: #3b82f6;
+}
+
+.row.selected:hover {
+    background: #bfdbfe;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    color: #1f2937;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.cell:first-child {
+    color: #6b7280;
+    font-variant-numeric: tabular-nums;
+}
+
+.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.scrollContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scrollContainer::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
