@@ -24,13 +24,13 @@ export function DataTable({ data }: DataTableProps) {
 
     const columns = useMemo(
         () => [
-            columnHelper.display({
+            columnHelper.accessor('rowNumber', {
                 id: 'index',
                 header: '#',
                 size: 80,
                 minSize: 60,
 
-                cell: ({ row }) => row.index + 1,
+                cell: ({ row }) => row.original.rowNumber,
             }),
 
             columnHelper.accessor('id', {
@@ -68,6 +68,10 @@ export function DataTable({ data }: DataTableProps) {
 
     const virtualRows = rowVirtualizer.getVirtualItems();
     const totalSize = rowVirtualizer.getTotalSize();
+
+    const handleRowClick = (id: number) => {
+        setSelectedRowId((prev) => (prev === id ? null : id));
+    };
 
     if (data.length === 0) {
         return (
@@ -133,14 +137,13 @@ export function DataTable({ data }: DataTableProps) {
                             return null;
                         }
 
-                        const rowNumber = virtualRow.index + 1;
                         const isSelected = selectedRowId === row.original.id;
 
                         return (
                             <div
-                                key={virtualRow.key}
+                                key={row.id}
                                 role="row"
-                                aria-rowindex={rowNumber}
+                                aria-rowindex={virtualRow.index + 1}
                                 aria-selected={isSelected}
                                 tabIndex={0}
                                 className={`${styles.row} ${isSelected
@@ -150,14 +153,7 @@ export function DataTable({ data }: DataTableProps) {
                                 style={{
                                     transform: `translateY(${virtualRow.start}px)`,
                                 }}
-                                onClick={() => {
-                                    setSelectedRowId(
-                                        (prev) =>
-                                            prev === row.original.id
-                                                ? null
-                                                : row.original.id,
-                                    );
-                                }}
+                                onClick={() => handleRowClick(row.original.id)}
                             >
                                 {row
                                     .getVisibleCells()
@@ -183,13 +179,10 @@ export function DataTable({ data }: DataTableProps) {
                                                         .minSize ?? 0,
                                             }}
                                         >
-                                            {cell.column.id === 'index'
-                                                ? rowNumber
-                                                : flexRender(
-                                                    cell.column.columnDef
-                                                        .cell,
-                                                    cell.getContext(),
-                                                )}
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                            )}
                                         </div>
                                     ))}
                             </div>
